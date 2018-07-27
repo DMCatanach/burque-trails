@@ -29,6 +29,8 @@ class BurqueTrails::CLI
 			else 
 				goodbye
 			end 
+		else 
+			goodbye
 		end
 	end 
 
