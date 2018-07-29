@@ -22,13 +22,10 @@ class BurqueTrails::CLI
 		# 	puts "Sorry, either there are no parks in your selected ZIP code that have parks with walking trails, or you've entered something that isn't an Albuquerque ZIP code."
 		# end
 		#call scraper method
+		BurqueTrails::Scraper.scrape_parks(input) 
 	end
 
 	def list_parks 
-		#code 
-	end 
-
-	def menu #eventually there will also be an option to see a list of all the trails, once that's working. Then this'll get a refactor
 		puts "Here are the parks with walking trails in your selected zip code:" #this is where we would want to call a method to get the output, passing input as argument
 		puts <<-DOC 
 		1. Arroyo del Oso* 
@@ -36,6 +33,10 @@ class BurqueTrails::CLI
 		3. North Domingo Baca 
 		4. Bataan Park*
 		DOC
+	end 
+
+	def menu #eventually there will also be an option to see a list of all the trails, once that's working. Then this'll get a refactor
+		list_parks
 		puts "Enter the number of a park you would like to see more details about. Otherwise, enter 'exit.'" 
 		input = gets.strip 
 		unless input == "exit"
