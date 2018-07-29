@@ -10,18 +10,23 @@ class BurqueTrails::CLI
 		menu
 	end 
 
-	def valid_zip(zip_code) 
-		PARK_ZIPS.include?(zip_code) 
-	end
+	#this isn't workking, so we'll just leave it out for now
+	# def valid_zip(zip_code) 
+	# 	PARK_ZIPS.include?(zip_code) 
+	# end
 
 	def zip_lookup 
 		puts "Please enter a ZIP code where you would like to find a walking trail:" 
 		input = gets.strip 
-		if !valid_zip(input) #this isn't working
-			puts "Sorry, either there are no parks in your selected ZIP code that have parks with walking trails, or you've entered something that isn't an Albuquerque ZIP code."
-		end
+		# if !valid_zip(input) #this isn't working
+		# 	puts "Sorry, either there are no parks in your selected ZIP code that have parks with walking trails, or you've entered something that isn't an Albuquerque ZIP code."
+		# end
 		#call scraper method
 	end
+
+	def list_parks 
+		#code 
+	end 
 
 	def menu #eventually there will also be an option to see a list of all the trails, once that's working. Then this'll get a refactor
 		puts "Here are the parks with walking trails in your selected zip code:" #this is where we would want to call a method to get the output, passing input as argument
