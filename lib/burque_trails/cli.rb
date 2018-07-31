@@ -7,7 +7,6 @@ class BurqueTrails::CLI
 		puts "Hello and welcome to Burque Trails!" 
 		puts"Several parks in Albuquerque have paved walking trails." 
 		puts"Here you can look up these parks by ZIP code." 
-		zip_lookup
 		menu
 	end 
 
@@ -20,15 +19,20 @@ class BurqueTrails::CLI
 		input = gets.strip
 		if !valid_zip(input.to_i)
 			puts "Sorry, either there are no parks in your selected ZIP code that have parks with walking trails, or you've entered something that isn't an Albuquerque ZIP code." 
-		elsif input.to_i == 87102 
-			puts "The park with a walking trail in this zip code is:"
-			puts "1. Tingley Park" 
+			puts "Would you like to try again? (y/n)"
+			input = gets.strip.downcase 
+			if input == "y" 
+				menu 
+			else
+				goodbye
+			end
 		else
 			BurqueTrails::Scraper.scrape_parks(BASE_URL + input)
 		end
 	end
 
 	def list_parks 
+		zip_lookup
 		puts "Here are the parks with walking trails in your selected zip code:" #this is where we would want to call a method to get the output, passing input as argument
 		# puts <<-DOC 
 		# 1. Arroyo del Oso* 
