@@ -1,21 +1,27 @@
 class BurqueTrails::Scraper 
 	
-	BASE_URL = "http://www.cabq.gov/parksandrecreation/parks/prescription-trails/"
+	def self.scrape_parks(url_input) 
 
-	#this should open a zip code page and get the list of parks, with each park's url
-	#right now it's hard coded, just to get stuff working
-	def self.scrape_parks(zip_input) 
-		#url = BASE_URL"/#{zip_input}" 
-
-		doc = Nokogiri::HTML(open("http://www.cabq.gov/parksandrecreation/parks/prescription-trails/87109")) 
+		doc = Nokogiri::HTML(open(url_input)) 
+		list_object = doc.css("h2.tileHeadline") 
 		binding.pry 
 
 		#code 
 	end 
 
-	#this should open an individual park page and get details, like  
+	#this should open an individual park page and get details
 	def self.scrape_park_detail 
 		#code 
 	end 
 
 end 
+
+#list page 
+#list of parks: doc.css("h2.tileHeadline") 
+#name: 
+#url
+
+#park page
+#description: 
+#cross_streets: 
+#trail_info: 

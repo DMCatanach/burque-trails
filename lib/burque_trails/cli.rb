@@ -1,5 +1,6 @@
 class BurqueTrails::CLI 
 
+	BASE_URL = "http://www.cabq.gov/parksandrecreation/parks/prescription-trails/"
 	PARK_ZIPS = [87102, 87104, 87105, 87106, 87107, 87108, 87109, 87110, 87111, 87112, 87113, 87114, 87120, 87121, 87122, 87123, 87131]
 	
 	def start 
@@ -10,34 +11,36 @@ class BurqueTrails::CLI
 		menu
 	end 
 
-	#this isn't workking, so we'll just leave it out for now
-	# def valid_zip(zip_code) 
-	# 	PARK_ZIPS.include?(zip_code) 
-	# end
+	def valid_zip(zip_code) 
+		PARK_ZIPS.include?(zip_code) 
+	end
 
 	def zip_lookup 
 		puts "Please enter a ZIP code where you would like to find a walking trail:" 
-		input = gets.strip 
-		# if !valid_zip(input) #this isn't working
-		# 	puts "Sorry, either there are no parks in your selected ZIP code that have parks with walking trails, or you've entered something that isn't an Albuquerque ZIP code."
-		# end
-		#call scraper method
-		BurqueTrails::Scraper.scrape_parks(input) 
+		input = gets.strip
+		if !valid_zip(input.to_i)
+			puts "Sorry, either there are no parks in your selected ZIP code that have parks with walking trails, or you've entered something that isn't an Albuquerque ZIP code." 
+		elsif input.to_i == 87102 
+			puts "The park with a walking trail in this zip code is:"
+			puts "1. Tingley Park" 
+		else
+			BurqueTrails::Scraper.scrape_parks(BASE_URL + input)
+		end
 	end
 
 	def list_parks 
 		puts "Here are the parks with walking trails in your selected zip code:" #this is where we would want to call a method to get the output, passing input as argument
-		puts <<-DOC 
-		1. Arroyo del Oso* 
-		2. Academy Hills 
-		3. North Domingo Baca 
-		4. Bataan Park*
-		DOC
+		# puts <<-DOC 
+		# 1. Arroyo del Oso* 
+		# 2. Academy Hills 
+		# 3. North Domingo Baca 
+		# 4. Bataan Park*
+		# DOC
 	end 
 
 	def menu #eventually there will also be an option to see a list of all the trails, once that's working. Then this'll get a refactor
 		list_parks
-		puts "Enter the number of a park you would like to see more details about. Otherwise, enter 'exit.'" 
+		puts "Enter the number of a park you would like to see more details about. Otherwise, type 'exit.'" 
 		input = gets.strip 
 		unless input == "exit"
 			puts "Here is some information about the park you selected: " 
