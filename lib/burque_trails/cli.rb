@@ -23,17 +23,17 @@ class BurqueTrails::CLI
 			input = gets.strip.downcase 
 			if input == "y" 
 				menu 
-			else
-				goodbye
+			else 
+				goodbye 
 			end
 		else
-			BurqueTrails::Scraper.scrape_parks(BASE_URL + input)
+			BurqueTrails::Scraper.scrape_parks(BASE_URL + input) #this calls the scraper method for getting a list of parks, which will create an object we can use later 
 		end
 	end
 
 	def list_parks 
 		zip_lookup
-		puts "Here are the parks with walking trails in your selected zip code:" #this is where we would want to call a method to get the output, passing input as argument
+		puts "Here are the parks with walking trails in your selected zip code:" #this is where we would want to output the contents of our parks array 
 		# puts <<-DOC 
 		# 1. Arroyo del Oso* 
 		# 2. Academy Hills 
@@ -41,6 +41,14 @@ class BurqueTrails::CLI
 		# 4. Bataan Park*
 		# DOC
 	end 
+
+	def add_detail_to_park
+		if park.name == "Tingley Park" 
+			Scraper.scrape_tingley_park(park)
+		else
+			Scraper.scrape_park_detail(park)
+		end 
+	end
 
 	def menu #eventually there will also be an option to see a list of all the trails, once that's working. Then this'll get a refactor
 		list_parks

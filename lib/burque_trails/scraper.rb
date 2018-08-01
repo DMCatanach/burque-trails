@@ -11,12 +11,13 @@ class BurqueTrails::Scraper
 	end 
 
 	#this should open an individual park page and get details
-	def self.scrape_park_detail 
+	def self.scrape_park_detail(park) 
 		#we'll want to account for parks with no descriptions in our logic  
 	end 
 
-	def self.scrape_tingley_detail 
-		#this is to scrape our special park 
+	#this is to scrape our special park
+	def self.scrape_tingley_detail(park) 
+		#code 
 	end
 
 end 
