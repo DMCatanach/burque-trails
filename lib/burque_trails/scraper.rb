@@ -12,12 +12,21 @@ class BurqueTrails::Scraper
 
 	#this should open an individual park page and get details
 	def self.scrape_park_detail(park) 
+		url = park.url 
+		doc = Nokogiri::HTML(open(url)) 
+
+		#park.cross_streets = 
+		#park.trail_info = 
 		#we'll want to account for parks with no descriptions in our logic  
 	end 
 
 	#this is to scrape our special park
 	def self.scrape_tingley_detail(park) 
-		#code 
+		url = park.url 
+		doc = Nokogiri::HTML(open(url)) 
+
+		#park.cross_streets = #this info will be different than from our other class
+		#park.trail_info = 
 	end
 
 end 
