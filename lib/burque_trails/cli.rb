@@ -22,26 +22,20 @@ class BurqueTrails::CLI
 			puts "Would you like to try again? (y/n)"
 			input = gets.strip.downcase 
 			if input == "y" 
-				menu 
+				list_parks 
 			else 
 				goodbye 
 			end
 		else
-			BurqueTrails::Scraper.scrape_parks(BASE_URL + input) #this calls the scraper method for getting a list of parks, which will create an object we can use later 
+			BurqueTrails::Scraper.scrape_parks(BASE_URL + input)  
 		end
 	end
 
 	def list_parks 
 		zip_lookup
-		puts "Here are the parks with walking trails in your selected zip code:" #this is where we would want to output the contents of our parks array 
+		puts "Here are the parks with walking trails in your selected zip code:"  
 		parks = BurqueTrails::Park.all 
 		parks.each.with_index(1) { |park, index| puts "#{index}. #{park.name}"} 
-		# puts <<-DOC 
-		# 1. Arroyo del Oso* 
-		# 2. Academy Hills 
-		# 3. North Domingo Baca 
-		# 4. Bataan Park*
-		# DOC
 	end 
 
 	def add_detail_to_park(park)
@@ -70,10 +64,10 @@ class BurqueTrails::CLI
 			park = BurqueTrails::Park.all[index]
 			add_detail_to_park(park)
 			list_park_info(park) 
-			puts "Would you like to see information about another park or view the list again? (y/n)" #right now, this goes back to entering a zipcode, but we want to go back to the list of parks instead
+			puts "Would you like to see information about another park or view the list again? (y/n)" #right now, this asks for a zip code again, and adds to the existing list
 			input = gets.strip.downcase 
 			if input == "y" 
-				menu
+				list_parks
 			else 
 				goodbye
 			end 

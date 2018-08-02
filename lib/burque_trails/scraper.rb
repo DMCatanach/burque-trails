@@ -1,19 +1,20 @@
 class BurqueTrails::Scraper 
 	
 	def self.scrape_parks(url_input) 
-
 		doc = Nokogiri::HTML(open(url_input)) 
 		parks = []
 		list_object = doc.css("h2.tileHeadline") 
-		binding.pry 
-
-		#code 
+		name_list = list_object.children.children.collect {|child| child.text} 
+		url_list = list_object.collect { |park| park.css("a").attribute("href").value } 
+		park_hash = name_list.zip(url_list).to_h 
+		park_hash.each { |name, url| BurqueTrails::Park.new(name, url) } 
 	end 
 
-	#this should open an individual park page and get details
+	#this opens an individual park page and gets details
 	def self.scrape_park_detail(park) 
 		url = park.url 
 		doc = Nokogiri::HTML(open(url)) 
+		binding.pry 
 
 		#park.cross_streets = 
 		#park.trail_info = 
