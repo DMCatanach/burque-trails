@@ -40,7 +40,9 @@ class BurqueTrails::CLI
 
 	def add_detail_to_park(park)
 		if park.name == "Tingley Park" 
-			BurqueTrails::Scraper.scrape_tingley_park(park)
+			BurqueTrails::Scraper.scrape_tingley_detail(park)
+		elsif park.name == "Arroyo del Oso Park" 
+			BurqueTrails::Scraper.scrape_arroyo_detail(park)
 		else
 			BurqueTrails::Scraper.scrape_park_detail(park)
 		end 
@@ -48,9 +50,9 @@ class BurqueTrails::CLI
 
 	def list_park_info(park) 
 		puts "Here is some information about the park you selected:" 
-		puts park.description 
-		puts park.cross_streets 
-		puts park.trail_info
+		puts "Description: #{park.description}" 
+		puts "Major cross streets: #{park.cross_streets}" 
+		puts "Trail information: #{park.trail_info}" #this info may or may not be in the description 
 	end 
 
 
