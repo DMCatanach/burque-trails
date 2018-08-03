@@ -14,9 +14,10 @@ class BurqueTrails::Scraper
 	def self.scrape_park_detail(park) 
 		url = park.url 
 		doc = Nokogiri::HTML(open(url)) 
-		#binding.pry 
+		binding.pry 
 
-		#park.cross_streets = 
+		park.description = doc.css("div#parent-fieldname-text p").first.text
+		park.cross_streets = doc.css("div.highlight-box p").first.text
 		#park.trail_info = 
 		#we'll want to account for parks with no descriptions in our logic, which might turn out to be just "if not nil"  
 	end 
@@ -27,8 +28,7 @@ class BurqueTrails::Scraper
 		doc = Nokogiri::HTML(open(url)) 
 
 		park.cross_streets = doc.css("div.well-sm p").first.text 
-		park.description = doc.css("div.col-md-pull-4 p").text 
-		#park.trail_info = 
+		park.description = doc.css("div.col-md-pull-4 p").text #this includes trail info
 	end 
 
 	#this is to scrape our other special park
@@ -46,6 +46,16 @@ end
 #list of parks: doc.css("h2.tileHeadline") 
 #name: list_object.children.children.collect {|child| child.text} <-- gives array of park names 
 #url: list_object.css("a").attribute("href").value
+
+#park pages 
+#description: doc.css("div#parent-fieldname-text p").first.text
+#cross_streets: doc.css("div.highlight-box p").first.text
+#trail_info: 
+
+#Tingley park page 
+#description: 
+#cross_streets: 
+#trail_info: 
 
 #Arroyo del Oso park page
 #description: doc.css("div.col-md-pull-4 p").text 

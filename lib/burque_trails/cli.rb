@@ -50,9 +50,9 @@ class BurqueTrails::CLI
 
 	def list_park_info(park) 
 		puts "Here is some information about the park you selected:" 
-		puts "Description: #{park.description}" 
+		puts "Description: #{park.description}" unless park.description == park.cross_streets
 		puts "Major cross streets: #{park.cross_streets}" 
-		puts "Trail information: #{park.trail_info}" #this info may or may not be in the description 
+		#puts "Trail information: #{park.trail_info}" #this info may or may not be in the description 
 	end 
 
 
