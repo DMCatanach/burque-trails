@@ -4,9 +4,11 @@ class BurqueTrails::CLI
 	PARK_ZIPS = [87102, 87104, 87105, 87106, 87107, 87108, 87109, 87110, 87111, 87112, 87113, 87114, 87120, 87121, 87122, 87123, 87131]
 	
 	def start 
+		puts " "
 		puts "Hello and welcome to Burque Trails!" 
-		puts"Several parks in Albuquerque have paved walking trails." 
-		puts"Here you can look up these parks by ZIP code." 
+		puts "Several parks in Albuquerque have paved walking trails." 
+		puts "Here you can look up these parks by ZIP code." 
+		puts " "
 		menu
 	end 
 
@@ -24,7 +26,7 @@ class BurqueTrails::CLI
 			if input == "y" 
 				list_parks 
 			else 
-				goodbye 
+				menu 
 			end
 		else
 			BurqueTrails::Scraper.scrape_parks(BASE_URL + input)  
@@ -36,7 +38,7 @@ class BurqueTrails::CLI
 		puts "Here are the parks with walking trails in your selected zip code:"  
 		parks = BurqueTrails::Park.all 
 		parks.each.with_index(1) { |park, index| puts "#{index}. #{park.name}"} 
-		#binding.pry
+		menu
 	end 
 
 	def add_detail_to_park(park)
@@ -49,33 +51,36 @@ class BurqueTrails::CLI
 		end 
 	end 
 
-	def list_park_info(park) 
+	def list_park_info 
+		puts "Enter the number of a park you would like to see more details about. Otherwise, type 'exit.'" 
+		input = gets.strip
+		index = input.to_i - 1 
+		park = BurqueTrails::Park.all[index]
+		add_detail_to_park(park)
+		puts " "
 		puts "Here is some information about the park you selected:" 
 		puts "Description: #{park.description}" unless park.description == park.cross_streets
 		puts "Major cross streets: #{park.cross_streets}" 
 		puts "Trail information: #{park.trail_info}" if park.trail_info
+		menu
 	end 
 
 
 	def menu #eventually there will also be an option to see a list of all the trails, once that's working. Then this'll get a refactor
-		list_parks
-		puts "Enter the number of a park you would like to see more details about. Otherwise, type 'exit.'" 
-		input = gets.strip
-		
-		unless input == "exit"
-			index = input.to_i - 1 
-			park = BurqueTrails::Park.all[index]
-			add_detail_to_park(park)
-			list_park_info(park) 
-			puts "Would you like to see information about another park or view the list again? (y/n)" 
-			input = gets.strip.downcase 
-			if input == "y" 
-				list_parks 
-				#then it exits, so, this'll need some refactoring 
-			else 
-				goodbye
-			end 
-		else 
+		puts " "
+		puts "To start, you may look up parks by zip code by typing 'list'." 
+		puts "Then, you may choose a park on the list to see more information about by typing 'more'."
+		puts "When you are done, type 'exit'." 
+		puts " "
+		puts "Which would you like to do?" 
+		input = gets.strip.downcase 
+
+		case input 
+		when "list" 
+			list_parks 
+		when "more" 
+			list_park_info 
+		when "exit" 
 			goodbye
 		end
 	end 
