@@ -41,6 +41,13 @@ class BurqueTrails::CLI
 		menu
 	end 
 
+	def list_all_parks
+		PARK_ZIPS.each { |zip| BurqueTrails::Scraper.scrape_parks(BASE_URL + zip.to_s) }
+		parks = BurqueTrails::Park.all 
+		parks.each.with_index(1) { |park, index| puts "#{index}. #{park.name}"} 
+		menu
+	end
+
 	def add_detail_to_park(park)
 		if park.name == "Tingley Park" 
 			BurqueTrails::Scraper.scrape_tingley_detail(park)
@@ -69,6 +76,7 @@ class BurqueTrails::CLI
 	def menu #eventually there will also be an option to see a list of all the trails, once that's working. Then this'll get a refactor
 		puts " "
 		puts "To start, you may look up parks by zip code by typing 'list'." 
+		puts "Or, if you would like to see a list of all the parks with a trail, type 'all.'"
 		puts "Then, you may choose a park on the list to see more information about by typing 'more'."
 		puts "When you are done, type 'exit'." 
 		puts " "
@@ -78,6 +86,8 @@ class BurqueTrails::CLI
 		case input 
 		when "list" 
 			list_parks 
+		when "all" 
+			list_all_parks
 		when "more" 
 			list_park_info 
 		when "exit" 
