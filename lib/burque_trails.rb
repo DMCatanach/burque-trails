@@ -1,5 +1,6 @@
 #environment file
 
+#with this many requirements, if this module doesn't come first, we get a name error
 module BurqueTrails
   # Your code goes here...
 end

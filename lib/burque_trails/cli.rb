@@ -73,8 +73,7 @@ class BurqueTrails::CLI
 	end 
 
 
-	def menu #eventually there will also be an option to see a list of all the trails, once that's working. Then this'll get a refactor
-		puts " "
+	def menu 
 		puts "To start, you may look up parks by zip code by typing 'list'." 
 		puts "Or, if you would like to see a list of all the parks with a trail, type 'all.'"
 		puts "Then, you may choose a park on the list to see more information about by typing 'more'."
