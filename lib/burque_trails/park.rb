@@ -1,7 +1,7 @@
 class BurqueTrails::Park 
 	attr_accessor :name, :url, :description, :cross_streets, :trail_info 
 
-	@@all = [] #this will probably grow if we do more than one zip code lookup, but that's a problem for later 
+	@@all = [] #this grows with subsequent zip lookups, but program is exiting on displaying list 2nd time 
 
 	def initialize(name, url) 
 		@name = name 

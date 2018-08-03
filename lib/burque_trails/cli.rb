@@ -36,6 +36,7 @@ class BurqueTrails::CLI
 		puts "Here are the parks with walking trails in your selected zip code:"  
 		parks = BurqueTrails::Park.all 
 		parks.each.with_index(1) { |park, index| puts "#{index}. #{park.name}"} 
+		#binding.pry
 	end 
 
 	def add_detail_to_park(park)
@@ -52,7 +53,7 @@ class BurqueTrails::CLI
 		puts "Here is some information about the park you selected:" 
 		puts "Description: #{park.description}" unless park.description == park.cross_streets
 		puts "Major cross streets: #{park.cross_streets}" 
-		#puts "Trail information: #{park.trail_info}" #this info may or may not be in the description 
+		puts "Trail information: #{park.trail_info}" if park.trail_info
 	end 
 
 
@@ -66,10 +67,11 @@ class BurqueTrails::CLI
 			park = BurqueTrails::Park.all[index]
 			add_detail_to_park(park)
 			list_park_info(park) 
-			puts "Would you like to see information about another park or view the list again? (y/n)" #right now, this asks for a zip code again, and adds to the existing list
+			puts "Would you like to see information about another park or view the list again? (y/n)" 
 			input = gets.strip.downcase 
 			if input == "y" 
-				list_parks
+				list_parks 
+				#then it exits, so, this'll need some refactoring 
 			else 
 				goodbye
 			end 
