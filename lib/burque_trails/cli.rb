@@ -62,16 +62,20 @@ class BurqueTrails::CLI
 		puts "Enter the number of a park you would like to see more details about. Otherwise, type 'exit.'" 
 		input = gets.strip
 		index = input.to_i - 1 
-		park = BurqueTrails::Park.all[index]
-		add_detail_to_park(park)
-		puts " "
-		puts "Here is some information about the park you selected:" 
-		puts "Description: #{park.description}" unless park.description == park.cross_streets
-		puts "Major cross streets: #{park.cross_streets}" 
-		puts "Trail information: #{park.trail_info}" if park.trail_info
+		if index > BurqueTrails::Park.all.size || index < 0
+			puts "Sorry, I don't know which park that is. Try again please."
+			list_park_info
+		else
+			park = BurqueTrails::Park.all[index]
+			add_detail_to_park(park)
+			puts " "
+			puts "Here is some information about the park you selected:" 
+			puts "Description: #{park.description}" unless park.description == park.cross_streets
+			puts "Major cross streets: #{park.cross_streets}" 
+			puts "Trail information: #{park.trail_info}" if park.trail_info
+		end 
 		menu
 	end 
-
 
 	def menu 
 		puts "To start, you may look up parks by zip code by typing 'list'." 
@@ -91,6 +95,8 @@ class BurqueTrails::CLI
 			list_park_info 
 		when "exit" 
 			goodbye
+		else 
+			puts "Sorry, I don't know how to do that. Try again, please."
 		end
 	end 
 
